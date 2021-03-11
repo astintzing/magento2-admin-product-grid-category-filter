@@ -28,7 +28,7 @@ class Category extends Column
                         $categories[] = $category->getName();
                     }
                 }
-                $item[$fieldName] = implode(',', $categories);
+                $item[$fieldName] = implode(', ', $categories);
             }
         }
 

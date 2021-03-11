@@ -26,9 +26,26 @@ class CategoryList implements ArrayInterface
         }
 
         foreach ($categoryCollection as $category) {
-            $options[] = ['label' => $category->getName(), 'value' => $category->getId()];
+            $options[] = ['label' => $this->_getParentsPath($category), 'value' => $category->getId()];
         }
 
         return $options;
+    }
+
+    protected function _getParentsPath($category)
+    {
+        $path = '';
+        $parentCategories = $category->getParentCategories();
+        foreach($parentCategories as $pc) {
+            $path .= $pc->getName() . ' » ';
+        }
+
+        if (empty($parentCategories)) {
+            $path = $category->getName();
+        } else {
+            $path = substr($path, 0, -3);
+        }
+
+        return $path;
     }
 }
